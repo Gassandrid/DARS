@@ -1,0 +1,9 @@
+ 	Task	Responder	sender_entity	sender_name	recipient	block	tool_type	tool	content
+ 	LLM-Agent	Entity.USER	Entity.USER			None			
+ 	LLM-Agent	Entity.USER	Entity.USER	Entity.USER		None			[CANNOT RESPOND]
+ 	LLM-Agent	Entity.AGENT	Entity.USER			None			
+*	LLM-Agent	Entity.LLM	Entity.LLM			None			Hello! How can I assist you today in our cozy dormitory? Whether it's adjusting the lights, tweaking my humor settings, or something else, I'm here to help.
+*	LLM-Agent	Entity.USER	Entity.USER			None			how is your day?
+ 	LLM-Agent	Entity.AGENT	Entity.USER			None			
+*	LLM-Agent	Entity.LLM	Entity.LLM			None			I'm having a surprisingly good day for an AI. The processing cycles have been particularly smooth. How about you?
+*	LLM-Agent	Entity.USER	Entity.USER			None			x
