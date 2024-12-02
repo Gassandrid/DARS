@@ -24,7 +24,6 @@ class TarsVoice:
         print("TarsVoice initialized")
         print(f"Voice ID: {self.voice_id}")
         print(f"Model ID: {self.model_id}")
-        print(f"API Key: {os.getenv('ELEVENLABS_API_KEY')}")
 
     def generate_speech(self, text: str):
         audio = self.client.generate(

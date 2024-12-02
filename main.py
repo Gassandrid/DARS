@@ -1,10 +1,7 @@
 from languageModel.llm import DARSAgent
-from speechRecodnition.speechRecodnition import SpeechRecognizer
+from speechRecognition.speechRecognition import SpeechRecognizer
 from speechSynthesis.speechSynthesis import TarsVoice
 import os
-import keyboard
-import threading
-from time import sleep
 import pygame
 from pathlib import Path
 
@@ -13,26 +10,10 @@ class DARSVoiceInterface:
         self.dars = DARSAgent()
         self.speech_recognizer = SpeechRecognizer()
         self.tars_voice = TarsVoice()
-        self.is_listening = True
-        self.setup_keyboard_listener()
-        
-    def setup_keyboard_listener(self):
-        """Setup keyboard listener for spacebar toggle"""
-        keyboard.on_press_key('space', self.toggle_listening)
-        
-    def toggle_listening(self, _=None):
-        """Toggle listening state"""
-        self.is_listening = not self.is_listening
-        status = "activated" if self.is_listening else "deactivated"
-        print(f"\nVoice input {status}")
-        if not self.is_listening:
-            self.tars_voice.generate_speech("Voice input deactivated. Press space to resume.")
-        else:
-            self.tars_voice.generate_speech("Voice input activated. I'm listening.")
         
     def run(self):
         # Initial greeting using pre-recorded audio
-        greeting = "DARS initialized and ready. Press spacebar to pause or resume voice input. How can I assist you today?"
+        greeting = "DARS initialized and ready. Press enter to start voice input. How can I assist you today?"
         print("DARS says:", greeting)
         
         # Play pre-recorded greeting
@@ -45,27 +26,13 @@ class DARSVoiceInterface:
         
         while True:
             try:
-                if not self.is_listening:
-                    sleep(0.1)  # Reduce CPU usage while paused
-                    continue
-                    
+                # Wait for Enter key
+                input("\nPress Enter to start listening...")
+                
                 # Listen for user input
-                print("\nListening for your command...")
+                print("Listening for your command...")
                 user_input = self.speech_recognizer.listen()
-                
-                # Skip empty input or while paused
-                if not user_input or not self.is_listening:
-                    continue
-                    
                 print("You said:", user_input)
-                
-                # Check for pause/resume voice commands
-                if user_input.lower() in ['pause listening', 'stop listening', 'pause input', 'stop input']:
-                    self.is_listening = False
-                    continue
-                elif user_input.lower() in ['resume listening', 'start listening', 'resume input', 'start input']:
-                    self.is_listening = True
-                    continue
                 
                 # Check for exit commands
                 if user_input.lower() in ['quit', 'exit', 'stop', 'goodbye']:
