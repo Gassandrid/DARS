@@ -36,7 +36,7 @@ class TarsVoice:
 
 def main():
     tars_voice = TarsVoice()
-    generated_speech = tars_voice.generate_speech("hello my name is tars")
+    generated_speech = tars_voice.generate_speech("i just turned on the coors light sign")
 
 if __name__ == "__main__":
     main()
