@@ -8,7 +8,7 @@ from typing import Optional
 class SpeechRecognizer:
     def __init__(self, model_path: Optional[str] = None):
         """Initialize the speech recognizer with optional custom model path"""
-        self.MODEL_PATH = model_path or "/Users/gassandrid/CS/DARS/vosk-model-small-en-us-0.15"
+        self.MODEL_PATH = model_path or "/users/ewan/DARS/vosk-model-small-en-us-0.15"
         self.audio_queue = queue.Queue()
         self._setup_model()
 

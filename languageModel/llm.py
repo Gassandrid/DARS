@@ -212,9 +212,26 @@ class DARSAgent:
                      "extremely humorous"
             return f"My humor level is currently set to {self.humor_level}/100, making me {context}.", None
         
-        # Handle all other messages
+        def clean_response(text: str) -> str:
+            """Clean up the response text by removing model tags and COT markers"""
+            # Remove model identifier tags (e.g., gpt4o-2023-12-01)
+            text = re.sub(r'gpt\d+o?-\d{4}-\d{2}-\d{2}', '', text)
+            # Remove COT markers
+            text = re.sub(r'cot=\d+(\.\d+)?', '', text)
+            # Remove any resulting double spaces
+            text = re.sub(r'\s+', ' ', text)
+            # Remove leading/trailing whitespace
+            return text.strip()
+
+        # Process message and get response
         response = self.task.run(message)
-        return self._parse_response(response)
+        natural_language, function_output = self._parse_response(response)
+        
+        # Clean up the natural language response
+        if natural_language:
+            natural_language = clean_response(natural_language)
+        
+        return natural_language, function_output
 
     def _parse_response(self, response: str) -> Tuple[str, Optional[str]]:
         """Helper method to parse the response and separate function output from natural language"""
